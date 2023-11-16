@@ -1,6 +1,8 @@
-﻿using MyProject.Sources.Domain.Players.Camera;
-using MyProject.Sources.Infrastructure.Services.Input;
-using MyProject.Sources.PresentationInterfaces.Views.Players.Camera;
+﻿using System;
+using JetBrains.Annotations;
+using MyProject.Sources.Domain.Players.Camera;
+using MyProject.Sources.Infrastructure.Services.Inputs;
+using MyProject.Sources.PresentationInterfaces.Views.Players;
 
 namespace MyProject.Sources.Controllers.Players.Camera
 {
@@ -20,12 +22,19 @@ namespace MyProject.Sources.Controllers.Players.Camera
             InputService inputService
         )
         {
-            _playerCamera = playerCamera;
-            _playerCameraView = playerCameraView;
-            _inputService = inputService;
-            
-            //TODO здесть подписки быть не дорлжно, посмотреть гист леши
+            _playerCamera = playerCamera ?? throw new ArgumentNullException(nameof(playerCamera));
+            _playerCameraView = playerCameraView ?? throw new ArgumentNullException(nameof(playerCameraView));
+            _inputService = inputService ?? throw new ArgumentNullException(nameof(inputService));
+        }
+
+        public void Enable()
+        {
             _inputService.RotationChanged += OnRotationChanged;
+        }
+
+        public void Disable()
+        {
+            _inputService.RotationChanged -= OnRotationChanged;
         }
 
         public void Update()

@@ -1,4 +1,6 @@
-﻿using MyProject.Sources.OldVersion.PlayerS.Domain.PlayerMovementCharacteristics;
+﻿using System;
+using JetBrains.Annotations;
+using MyProject.Sources.OldVersion.PlayerS.Domain.PlayerMovementCharacteristics;
 using UnityEngine;
 
 namespace MyProject.Sources.Domain.Players.Movement
@@ -14,8 +16,8 @@ namespace MyProject.Sources.Domain.Players.Movement
             Transform cameraPosition
         )
         {
-            _characteristics = characteristics;
-            _cameraPosition = cameraPosition;
+            _characteristics = characteristics ?? throw new ArgumentNullException(nameof(characteristics));
+            _cameraPosition = cameraPosition ?? throw new ArgumentNullException(nameof(cameraPosition));
         }
         
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)

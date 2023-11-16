@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace MyProject.Sources.Domain.Players.Camera
 {
@@ -10,8 +12,7 @@ namespace MyProject.Sources.Domain.Players.Camera
         
         public PlayerCamera(Transform cameraTransform)
         {
-            //TODO сделать проверки на входе в конструктор на все зависимости
-            _cameraTransform = cameraTransform;
+            _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
 
             AngleY = _cameraTransform.position.y;
         }

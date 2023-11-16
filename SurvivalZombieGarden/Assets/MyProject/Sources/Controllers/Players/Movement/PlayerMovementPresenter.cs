@@ -1,7 +1,9 @@
-﻿using MyProject.Sources.Domain.Players.Movement;
-using MyProject.Sources.Infrastructure.Services.Input;
-using MyProject.Sources.PresentationInterfaces.Views.Players.Animations;
-using MyProject.Sources.PresentationInterfaces.Views.Players.Movement;
+﻿using System;
+using JetBrains.Annotations;
+using MyProject.Sources.Domain.Players.Movement;
+using MyProject.Sources.Infrastructure.Services.Inputs;
+using MyProject.Sources.PresentationInterfaces.Animations;
+using MyProject.Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;
 
 namespace MyProject.Sources.Controllers.Players.Movement
@@ -22,18 +24,25 @@ namespace MyProject.Sources.Controllers.Players.Movement
             PlayerMovement playerMovement,
             IPlayerMovementView playerMovementView,
             InputService inputService,
-            //TODO убрать слово контрольллер и вью
             IPlayerAnimationView playerAnimationView
         )
         {
-            _playerMovement = playerMovement;
-            _playerMovementView = playerMovementView;
-            _inputService = inputService;
-            _playerAnimationView = playerAnimationView;
+            _playerMovement = playerMovement ?? throw new ArgumentNullException(nameof(playerMovement));
+            _playerMovementView = playerMovementView ?? throw new ArgumentNullException(nameof(playerMovementView));
+            _inputService = inputService ?? throw new ArgumentNullException(nameof(inputService));
+            _playerAnimationView = playerAnimationView ?? throw new ArgumentNullException(nameof(playerAnimationView));
+        }
 
-            //TODO подписываться Здесь? и где отписываться?
+        public void Enable()
+        {
             _inputService.MovementAxisChanged += SetMovementAxis;
             _inputService.RunAxisChanged += SetRunAxis;
+        }
+        
+        public void Disable()
+        {
+            _inputService.MovementAxisChanged -= SetMovementAxis;
+            _inputService.RunAxisChanged -= SetRunAxis;
         }
         
         public void Update()
