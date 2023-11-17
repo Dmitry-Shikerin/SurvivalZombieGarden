@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyProject.Sources.Controllers.Players.Movement;
+using UnityEngine;
 
 namespace MyProject.Sources.PresentationInterfaces.Views.Players
 {
@@ -6,5 +7,6 @@ namespace MyProject.Sources.PresentationInterfaces.Views.Players
     {
         void Move(Vector3 direction);
         void Rotate(Quaternion look, float speed);
+        void Construct(PlayerMovementPresenter playerMovementPresenter);
     }
 }

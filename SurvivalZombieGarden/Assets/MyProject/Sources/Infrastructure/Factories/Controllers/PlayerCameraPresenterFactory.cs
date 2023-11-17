@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Players.Camera;
 using MyProject.Sources.Domain.Players.Camera;
 using MyProject.Sources.Infrastructure.Services.Inputs;
@@ -7,14 +8,14 @@ using UnityEngine;
 
 namespace MyProject.Sources.Infrastructure.Factories.Controllers
 {
-    public class PlayerCameraPresenterFactory : MonoBehaviour
+    public class PlayerCameraPresenterFactory
     {
-        [SerializeField] private InputService _inputService;
+        private InputService _inputService;
 
-        private void Awake()
+        public PlayerCameraPresenterFactory(InputService inputService)
         {
-            if (_inputService == null)
-                throw new NullReferenceException(nameof(_inputService));
+            _inputService = inputService ?? 
+                            throw new ArgumentNullException(nameof(inputService));
         }
 
         public PlayerCameraPresenter Create(PlayerCamera playerCamera, IPlayerCameraView playerCameraView)

@@ -16,4 +16,4 @@ MonoBehaviour:
   <MovementSpeed>k__BackingField: 1.5
   <RunSpeed>k__BackingField: 2
   <AngularSpeed>k__BackingField: 450
-  <Gravity>k__BackingField: 2
+  <Gravity>k__BackingField: 3

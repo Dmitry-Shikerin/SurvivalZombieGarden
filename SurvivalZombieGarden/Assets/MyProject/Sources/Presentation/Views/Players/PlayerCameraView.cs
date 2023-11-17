@@ -7,15 +7,9 @@ namespace MyProject.Sources.Presentation.Views.Players
 {
     public class PlayerCameraView : MonoBehaviour,IPlayerCameraView
     {
-        [SerializeField] private Transform _targetTransform;
+        private Transform _targetTransform;
 
         private PlayerCameraPresenter _playerCameraPresenter;
-
-        private void Awake()
-        {
-            if (_targetTransform == null)
-                throw new NullReferenceException(nameof(_targetTransform));
-        }
 
         private void OnEnable()
         {
@@ -40,6 +34,12 @@ namespace MyProject.Sources.Presentation.Views.Players
                                      ?? throw new ArgumentNullException(nameof(playerCameraPresenter));
             
             gameObject.SetActive(true);
+        }
+
+        public void SetTransform(Transform targetTransform)
+        {
+            _targetTransform = targetTransform ?? 
+                               throw new ArgumentNullException(nameof(targetTransform));
         }
 
         public void Follow()

@@ -1,26 +1,28 @@
 ﻿using System;
 using MyProject.Sources.Domain.Players.Camera;
 using MyProject.Sources.Infrastructure.Factories.Controllers;
-using MyProject.Sources.Presentation.Views.Players;
-using UnityEngine;
+using MyProject.Sources.PresentationInterfaces.Views.Players;
 
 namespace MyProject.Sources.Infrastructure.Factories.Views
 {
-    public class PlayerCameraViewFactory : MonoBehaviour
+    public class PlayerCameraViewFactory
     {
-        [SerializeField] private PlayerCameraPresenterFactory _playerCameraPresenterFactory;
-        [SerializeField] private PlayerCameraView _playerCameraView;
+        private readonly PlayerCameraPresenterFactory _playerCameraPresenterFactory;
+        private readonly IPlayerCameraView _playerCameraView;
 
-        private void Awake()
+        public PlayerCameraViewFactory
+        (
+            PlayerCameraPresenterFactory playerCameraPresenterFactory,
+            IPlayerCameraView playerCameraView
+        )
         {
-            if (_playerCameraPresenterFactory == null)
-                throw new NullReferenceException(nameof(_playerCameraPresenterFactory));
-
-            if (_playerCameraView == null)
-                throw new NullReferenceException(nameof(_playerCameraView));
+            _playerCameraPresenterFactory = playerCameraPresenterFactory ?? 
+                                            throw new ArgumentNullException(nameof(playerCameraPresenterFactory));
+            _playerCameraView = playerCameraView ?? 
+                                throw new ArgumentNullException(nameof(playerCameraView));
         }
 
-        public PlayerCameraView Create(PlayerCamera playerCamera)
+        public IPlayerCameraView Create(PlayerCamera playerCamera)
         {
             var presenter = _playerCameraPresenterFactory.Create(playerCamera, _playerCameraView);
             _playerCameraView.Construct(presenter);

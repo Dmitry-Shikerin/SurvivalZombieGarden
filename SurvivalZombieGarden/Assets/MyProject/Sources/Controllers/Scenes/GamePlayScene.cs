@@ -1,4 +1,5 @@
-﻿namespace MyProject.Sources.Controllers.Scenes
+﻿
+namespace MyProject.Sources.Controllers.Scenes
 {
     public class GamePlayScene : IScene
     {
@@ -16,6 +17,7 @@
 
         public void Enter(object payload)
         {
+
         }
 
         public void Exit()

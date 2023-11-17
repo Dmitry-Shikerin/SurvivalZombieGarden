@@ -15,7 +15,6 @@ namespace MyProject.Sources.PresentationInterfaces.Views.Bootstrap
             if (_canvasGroup == null)
                 throw new NullReferenceException(nameof(_canvasGroup));
             
-            //TODO можно ли делать 2 DDOL
             DontDestroyOnLoad(this);
             _canvasGroup.alpha = 0;
         }
@@ -30,7 +29,6 @@ namespace MyProject.Sources.PresentationInterfaces.Views.Bootstrap
         {
             _canvasGroup.alpha = startAlpha;
 
-            //TODO можно ли заменить на эпсилон?
             while (Mathf.Abs(_canvasGroup.alpha - endAlpha) > 0.01)
             {
                 _canvasGroup.alpha = Mathf.MoveTowards

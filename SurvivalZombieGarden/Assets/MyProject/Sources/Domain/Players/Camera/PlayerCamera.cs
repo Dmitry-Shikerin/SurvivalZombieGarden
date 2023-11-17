@@ -12,7 +12,8 @@ namespace MyProject.Sources.Domain.Players.Camera
         
         public PlayerCamera(Transform cameraTransform)
         {
-            _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
+            _cameraTransform = cameraTransform ?? 
+                               throw new ArgumentNullException(nameof(cameraTransform));
 
             AngleY = _cameraTransform.position.y;
         }
